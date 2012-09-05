@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>$generalUtil.htmlEncode($pageTitle)</title>
+	</head>
+
+    #applyDecorator("root")
+        #decoratorParam("context" "profile")
+        #decoratorParam("mode" "myGroupDocsProfile")
+        #decoratorParam("helper" $helper)
+
+        <body>
+        	<style>
+			form.aui .error {
+				background-color: transparent;
+			}
+
+			#tokenError {
+				background-color: #FFE7E7;
+			}
+			</style>
+
+            <div class="page-section admin-trio profile-page">
+            	<div class="page-group">
+					<div class="page-item profile-main">
+						<div>
+							<h2>GroupDocs Account Details</h2>
+							#if(!$groupDocsClientId || !$groupDocsPrivateKey)
+								<div class="aui-message warning shadowed">
+									<span class="svg-icon warning size-18"></span>
+									<p>You must provide your Client ID and API Key. Please go to <a href="$!dashboardUrl">$!dashboardUrl</a> to get your Client ID and API Key</p>
+								</div>
+							#end
+							<div>
+								<form action="$!req.contextPath/users/plugins/groupdocs/save.action" method="POST">
+									<p class="title">Client ID: <input type="text" name="groupDocsClientId" value="$!groupDocsClientId"/></p>
+									<p class="title">API Key: <input type="text" name="groupDocsPrivateKey" value="$!groupDocsPrivateKey"/></p>
+									<input type="submit" value="Save"/>
+								</form>
+							</div>
+						</div>
+					</div> <!-- end page-item profile-main div-->
+				</div>
+            </div>
+        </body>
+    #end
+</html>
+

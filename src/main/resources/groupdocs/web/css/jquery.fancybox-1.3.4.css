@@ -1,0 +1,360 @@
+/*
+ * gfancybox - jQuery Plugin
+ * Simple and fancy lightbox alternative
+ *
+ * Examples and documentation at: http://gfancybox.net
+ *
+ * Copyright (c) 2008 - 2010 Janis Skarnelis
+ * That said, it is hardly a one-person project. Many people have submitted bugs, code, and offered their advice freely. Their support is greatly appreciated.
+ *
+ * Version: 1.3.4 (11/11/2010)
+ * Requires: jQuery v1.3+
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ */
+
+
+#gfancybox-loading {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 40px;
+	height: 40px;
+	margin-top: -20px;
+	margin-left: -20px;
+	cursor: pointer;
+	overflow: hidden;
+	z-index: 1104;
+	display: none;
+}
+
+#gfancybox-loading div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 40px;
+	height: 480px;
+	background-image: url('images/gfancybox.png');
+}
+
+#gfancybox-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1100;
+	display: none;
+}
+
+#gfancybox-tmp {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	overflow: auto;
+	display: none;
+}
+
+#gfancybox-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 20px;
+	z-index: 1101;
+	outline: none;
+	display: none;
+}
+
+#gfancybox-outer {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+
+#gfancybox-content {
+	width: 0;
+	height: 0;
+	padding: 0;
+	outline: none;
+	position: relative;
+	overflow: hidden;
+	z-index: 1102;
+	border: 0px solid #fff;
+}
+
+#gfancybox-hide-sel-frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	z-index: 1101;
+}
+
+#gfancybox-close {
+	position: absolute;
+	top: -15px;
+	right: -15px;
+	width: 30px;
+	height: 30px;
+	background: transparent url('images/gfancybox.png') -40px 0px;
+	cursor: pointer;
+	z-index: 1103;
+	display: none;
+}
+
+#gfancybox-error {
+	color: #444;
+	font: normal 12px/20px Arial;
+	padding: 14px;
+	margin: 0;
+}
+
+#gfancybox-img {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: none;
+	outline: none;
+	line-height: 0;
+	vertical-align: top;
+}
+
+#gfancybox-frame {
+	width: 100%;
+	height: 100%;
+	border: none;
+	display: block;
+}
+
+#gfancybox-left, #gfancybox-right {
+	position: absolute;
+	bottom: 0px;
+	height: 100%;
+	width: 35%;
+	cursor: pointer;
+	outline: none;
+	background: transparent url('images/blank.gif');
+	z-index: 1102;
+	display: none;
+}
+
+#gfancybox-left {
+	left: 0px;
+}
+
+#gfancybox-right {
+	right: 0px;
+}
+
+#gfancybox-left-ico, #gfancybox-right-ico {
+	position: absolute;
+	top: 50%;
+	left: -9999px;
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	cursor: pointer;
+	z-index: 1102;
+	display: block;
+}
+
+#gfancybox-left-ico {
+	background-image: url('images/gfancybox.png');
+	background-position: -40px -30px;
+}
+
+#gfancybox-right-ico {
+	background-image: url('images/gfancybox.png');
+	background-position: -40px -60px;
+}
+
+#gfancybox-left:hover, #gfancybox-right:hover {
+	visibility: visible; /* IE6 */
+}
+
+#gfancybox-left:hover span {
+	left: 20px;
+}
+
+#gfancybox-right:hover span {
+	left: auto;
+	right: 20px;
+}
+
+.gfancybox-bg {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	width: 20px;
+	height: 20px;
+	z-index: 1001;
+}
+
+#gfancybox-bg-n {
+	top: -20px;
+	left: 0;
+	width: 100%;
+	background-image: url('images/gfancybox-x.png');
+}
+
+#gfancybox-bg-ne {
+	top: -20px;
+	right: -20px;
+	background-image: url('images/gfancybox.png');
+	background-position: -40px -162px;
+}
+
+#gfancybox-bg-e {
+	top: 0;
+	right: -20px;
+	height: 100%;
+	background-image: url('images/gfancybox-y.png');
+	background-position: -20px 0px;
+}
+
+#gfancybox-bg-se {
+	bottom: -20px;
+	right: -20px;
+	background-image: url('images/gfancybox.png');
+	background-position: -40px -182px;
+}
+
+#gfancybox-bg-s {
+	bottom: -20px;
+	left: 0;
+	width: 100%;
+	background-image: url('images/gfancybox-x.png');
+	background-position: 0px -20px;
+}
+
+#gfancybox-bg-sw {
+	bottom: -20px;
+	left: -20px;
+	background-image: url('images/gfancybox.png');
+	background-position: -40px -142px;
+}
+
+#gfancybox-bg-w {
+	top: 0;
+	left: -20px;
+	height: 100%;
+	background-image: url('images/gfancybox-y.png');
+}
+
+#gfancybox-bg-nw {
+	top: -20px;
+	left: -20px;
+	background-image: url('images/gfancybox.png');
+	background-position: -40px -122px;
+}
+
+#gfancybox-title {
+	font-family: Helvetica;
+	font-size: 12px;
+	z-index: 1102;
+}
+
+.gfancybox-title-inside {
+	padding-bottom: 10px;
+	text-align: center;
+	color: #333;
+	background: #fff;
+	position: relative;
+}
+
+.gfancybox-title-outside {
+	padding-top: 10px;
+	color: #fff;
+}
+
+.gfancybox-title-over {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: #FFF;
+	text-align: left;
+}
+
+#gfancybox-title-over {
+	padding: 10px;
+	background-image: url('images/fancy_title_over.png');
+	display: block;
+}
+
+.gfancybox-title-float {
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+	height: 32px;
+}
+
+#gfancybox-title-float-wrap {
+	border: none;
+	border-collapse: collapse;
+	width: auto;
+}
+
+#gfancybox-title-float-wrap td {
+	border: none;
+	white-space: nowrap;
+}
+
+#gfancybox-title-float-left {
+	padding: 0 0 0 15px;
+	background: url('images/gfancybox.png') -40px -90px no-repeat;
+}
+
+#gfancybox-title-float-main {
+	color: #FFF;
+	line-height: 29px;
+	font-weight: bold;
+	padding: 0 0 3px 0;
+	background: url('images/gfancybox-x.png') 0px -40px;
+}
+
+#gfancybox-title-float-right {
+	padding: 0 0 0 15px;
+	background: url('images/gfancybox.png') -55px -90px no-repeat;
+}
+
+/* IE6 */
+
+.gfancybox-ie6 #gfancybox-close { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_close.png', sizingMethod='scale'); }
+
+.gfancybox-ie6 #gfancybox-left-ico { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_nav_left.png', sizingMethod='scale'); }
+.gfancybox-ie6 #gfancybox-right-ico { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_nav_right.png', sizingMethod='scale'); }
+
+.gfancybox-ie6 #gfancybox-title-over { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_title_over.png', sizingMethod='scale'); zoom: 1; }
+.gfancybox-ie6 #gfancybox-title-float-left { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_title_left.png', sizingMethod='scale'); }
+.gfancybox-ie6 #gfancybox-title-float-main { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_title_main.png', sizingMethod='scale'); }
+.gfancybox-ie6 #gfancybox-title-float-right { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_title_right.png', sizingMethod='scale'); }
+
+.gfancybox-ie6 #gfancybox-bg-w, .gfancybox-ie6 #gfancybox-bg-e, .gfancybox-ie6 #gfancybox-left, .gfancybox-ie6 #gfancybox-right, #gfancybox-hide-sel-frame {
+	height: expression(this.parentNode.clientHeight + "px");
+}
+
+#gfancybox-loading.gfancybox-ie6 {
+	position: absolute; margin-top: 0;
+	top: expression( (-20 + (document.documentElement.clientHeight ? document.documentElement.clientHeight/2 : document.body.clientHeight/2 ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop )) + 'px');
+}
+
+#gfancybox-loading.gfancybox-ie6 div	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_loading.png', sizingMethod='scale'); }
+
+/* IE6, IE7, IE8 */
+
+.gfancybox-ie .gfancybox-bg { background: transparent !important; }
+
+.gfancybox-ie #gfancybox-bg-n { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_n.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-ne { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_ne.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-e { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_e.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-se { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_se.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-s { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_s.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-sw { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_sw.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-w { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_w.png', sizingMethod='scale'); }
+.gfancybox-ie #gfancybox-bg-nw { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='gfancybox/fancy_shadow_nw.png', sizingMethod='scale'); }

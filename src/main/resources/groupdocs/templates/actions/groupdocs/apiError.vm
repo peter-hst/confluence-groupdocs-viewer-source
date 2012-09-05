@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>GroupDocs</title>
+		<decorator>popup</decorator>
+	</head>
+
+	<body>
+		<div class="warningMessage" style="text-align: left;">
+			Error occured while trying to communicate with GroupDocs. Please try again.
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,17 @@
+#insert-menu .macro-groupdocs-doc .icon {
+	background: transparent url("res/groupdocs_file_16.png") 0 0 no-repeat;
+	margin-top: 0px;
+}
+
+#insert-menu .macro-groupdocs-folder .icon {
+	background: transparent url("res/groupdocs_folder_16.png") 0 0 no-repeat;
+	margin-top: 0px;
+}
+
+.mce_menu_conf_macro_groupdocs-doc .mceIcon {
+	background: transparent url("res/groupdocs_file_16.png") 2px 0 no-repeat !important;
+}
+
+.mce_menu_conf_macro_groupdocs-folder .mceIcon {
+	background: transparent url("res/groupdocs_folder_16.png") 2px 0 no-repeat !important;
+}

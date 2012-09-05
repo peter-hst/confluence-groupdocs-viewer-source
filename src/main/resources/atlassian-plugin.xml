@@ -1,0 +1,173 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="configure.url">/admin/plugins/groupdocs/settings.action</param>
+        <param name="plugin-icon">groupdocs/images/groupdocs_icon.png</param>
+        <param name="plugin-logo">groupdocs/images/groupdocs_logo.png</param>
+    </plugin-info>
+
+	<resource name="i18n" type="i18n" location="groupdocs"/>
+	<resource name="images/" type="download" location="groupdocs/web/images"/>
+	<resource key="res" name="res/" type="download" location="groupdocs/res"/>
+
+	<web-resource key="fileTreeWebResource" name="jQuery FileTree Web Resource">
+		<resource name="common.js" type="download" location="groupdocs/web/js/common.js"/>
+		<resource name="jqueryFileTree.js" type="download" location="groupdocs/web/jqueryFileTree/jqueryFileTree.js"/>
+		<resource name="jqueryFileTree.css" type="download" location="groupdocs/web/jqueryFileTree/jqueryFileTree.css"/>
+		<resource name="images/" type="download" location="groupdocs/web/jqueryFileTree/images"/>
+	</web-resource>
+
+	<web-resource key="${project.artifactId}.macroBrowserWebResource" name="Macro Browser Web Resource">
+		<resource name="groupdocsbrowser.js" type="download" location="groupdocs/web/js/groupdocsbrowser.js"/>
+		<resource name="groupdocs.css" type="download" location="groupdocs/web/css/groupdocs.css"/>
+		<resource name="images/" type="download" location="groupdocs/web/images"/>
+		<dependency>${project.groupId}.${project.artifactId}:fileTreeWebResource</dependency>
+		<dependency>confluence.editor.actions:editor-macro-browser</dependency>
+		<context>macro-browser</context>
+	</web-resource>
+
+	<web-resource key="groupdocsFolderWebResource" name="List GroupDocs Folder Web Resource">
+		<resource name="foldermacro.js" type="download" location="groupdocs/web/js/foldermacro.js"/>
+		<resource name="groupdocs.css" type="download" location="groupdocs/web/css/groupdocs.css"/>
+		<resource name="jquery.fancybox-1.3.4.js" type="download" location="groupdocs/web/js/jquery.fancybox-1.3.4.js"/>
+		<resource name="jquery.fancybox-1.3.4.css" type="download" location="groupdocs/web/css/jquery.fancybox-1.3.4.css"/>
+		<resource name="images/" type="download" location="groupdocs/web/images"/>
+		<dependency>${project.groupId}.${project.artifactId}:fileTreeWebResource</dependency>
+		<dependency>confluence.web.resources:ajs</dependency>
+	</web-resource>
+
+	<web-resource key="editorWebResource" name="Editor Web Resource">
+		<context>editor</context>
+		<dependency>com.atlassian.confluence.tinymceplugin:editor-resources</dependency>
+		<resource type="download" name="editormenu.css" location="groupdocs/web/css/editormenu.css"/>
+	</web-resource>
+
+	<macro key="groupdocs-doc" name="groupdocs-doc"
+        icon="/download/resources/${project.groupId}.${project.artifactId}/res/groupdocs_file.png"
+    	class="com.groupdocs.plugins.confluence.macro.groupdocs.ViewGroupdocsDocumentMacro">
+		<category name="external-content"/>
+		<parameters>
+			<parameter name="path" type="string" required="true">
+			</parameter>
+			<parameter name="width" type="string" default="100%">
+			</parameter>
+			<parameter name="height" type="string" default="400px">
+			</parameter>
+		</parameters>
+    </macro>
+
+    <xhtml-macro key="xhtml-groupdocs-doc" name="groupdocs-doc"
+        icon="/download/resources/${project.groupId}.${project.artifactId}/res/groupdocs_file.png"
+    	class="com.groupdocs.plugins.confluence.macro.groupdocs.XhtmlViewGroupdocsDocumentMacro">
+		<category name="external-content"/>
+		<parameters>
+			<parameter name="path" type="string" required="true">
+			</parameter>
+			<parameter name="width" type="string" default="100%">
+			</parameter>
+			<parameter name="height" type="string" default="400px">
+			</parameter>
+		</parameters>
+    </xhtml-macro>
+
+    <web-item  key="editor-groupdocs-doc" name="Insert Menu Link - GroupDocs Document Macro" section="system.editor.featured.macros.default" weight="10">
+    	<label key="${project.groupId}.${project.artifactId}.groupdocs-doc.label"/>
+		<link linkId="groupdocs-doc"/>
+	</web-item>
+
+    <macro key="groupdocs-folder" name="groupdocs-folder"
+        icon="/download/resources/${project.groupId}.${project.artifactId}/res/groupdocs_folder.png"
+    	class="com.groupdocs.plugins.confluence.macro.groupdocs.ViewGroupdocsFolderMacro">
+		<category name="external-content"/>
+		<parameters>
+			<parameter name="path" type="string" required="true">
+			</parameter>
+			<parameter name="width" type="string" default="960">
+			</parameter>
+			<parameter name="height" type="string" default="640">
+			</parameter>
+		</parameters>
+    </macro>
+
+    <xhtml-macro key="xhtml-groupdocs-folder" name="groupdocs-folder"
+        icon="/download/resources/${project.groupId}.${project.artifactId}/res/groupdocs_folder.png"
+    	class="com.groupdocs.plugins.confluence.macro.groupdocs.XhtmlViewGroupdocsFolderMacro">
+		<category name="external-content"/>
+		<parameters>
+			<parameter name="path" type="string" required="true">
+			</parameter>
+			<parameter name="width" type="string" default="960">
+			</parameter>
+			<parameter name="height" type="string" default="640">
+			</parameter>
+		</parameters>
+    </xhtml-macro>
+
+    <web-item key="${project.artifactId}.editor-groupdocs-folder" name="Insert Menu Link - GroupDocs Folder Macro" section="system.editor.featured.macros.default" weight="10">
+    	<label key="${project.groupId}.${project.artifactId}.groupdocs-folder.label"/>
+		<link linkId="groupdocs-folder"/>
+	</web-item>
+
+    <web-item key="${project.artifactId}.groupdocsSettings" name="GroupDocs Viewer Settings" section="system.admin/configuration" weight="10000">
+		<label key="${project.groupId}.${project.artifactId}.webitem.adminsettings"/>
+		<link>/admin/plugins/groupdocs/settings.action</link>
+	</web-item>
+
+	<web-item key="myGroupDocs" name="My GroupDocs" section="system.user/user-content" weight="9">
+		<label key="${project.groupId}.${project.artifactId}.webitem.mygroupdocs"/>
+		<link>/users/plugins/groupdocs/account.action</link>
+	</web-item>
+
+	<web-item key="myGroupDocsProfile" name="My GroupDocs Profile" section="system.profile" weight="99">
+		<label key="${project.groupId}.${project.artifactId}.webitem.groupdocs"/>
+		<link>/users/plugins/groupdocs/account.action</link>
+	</web-item>
+
+	<!-- Component Imports -->
+	<component-import key="pluginSettingsFactory" name="Plugin Settings Factory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory">
+    	<decription>SAL plugin settings factory.</decription>
+    </component-import>
+
+	<!-- Components -->
+	<component key="groupDocsManager" name="GroupDocs Manager" class="com.groupdocs.plugins.confluence.component.groupdocs.GroupDocsManagerImpl">
+		<interface>com.groupdocs.plugins.confluence.component.groupdocs.GroupDocsManager</interface>
+	</component>
+
+	<!-- Actions -->
+	<xwork key="groupDocsActions" name="GroupDocs Actions">
+		<package name="groupdocsAdminSection" extends="default" namespace="/admin/plugins/groupdocs">
+			<default-interceptor-ref name="defaultStack"/>
+			<action name="settings" class="com.groupdocs.plugins.confluence.action.groupdocs.AdminAction" method="settings">
+				<result name="success" type="velocity">/groupdocs/templates/actions/admin/settings.vm</result>
+				<result name="input" type="velocity">/groupdocs/templates/actions/admin/settings.vm</result>
+				<result name="error" type="velocity">/groupdocs/templates/actions/admin/settings.vm</result>
+			</action>
+			<action name="save" class="com.groupdocs.plugins.confluence.action.groupdocs.AdminAction" method="saveSettings">
+				<result name="success" type="velocity">/groupdocs/templates/actions/admin/settings.vm</result>
+				<result name="input" type="velocity">/groupdocs/templates/actions/admin/settings.vm</result>
+				<result name="error" type="velocity">/groupdocs/templates/actions/admin/settings.vm</result>
+			</action>
+		</package>
+		<package name="myAccount" extends="default" namespace="/users/plugins/groupdocs">
+			<default-interceptor-ref name="defaultStack"/>
+		    <action name="save" class="com.groupdocs.plugins.confluence.action.groupdocs.GroupDocsAction" method="saveAccountInfo">
+		        <result name="success" type="redirect">/users/plugins/groupdocs/account.action</result>
+		        <result name="error" type="velocity">/groupdocs/templates/actions/groupdocs/apiError.vm</result>
+		    </action>
+			<action name="account" class="com.groupdocs.plugins.confluence.action.groupdocs.MyAccountAction" method="account">
+				<result name="success" type="velocity">/groupdocs/templates/actions/groupdocs/myAccount.vm</result>
+				<result name="input" type="velocity">/groupdocs/templates/actions/groupdocs/myAccount.vm</result>
+				<result name="error" type="velocity">/groupdocs/templates/actions/groupdocs/myAccount.vm</result>
+			</action>
+		</package>
+	</xwork>
+
+	<servlet key="${project.artifactId}.groupdocsListServlet" name="GroupDocs List Files Servlet" class="com.groupdocs.plugins.confluence.servlet.groupdocs.ListServlet">
+		<description/>
+		<url-pattern>/groupdocs/list</url-pattern>
+	</servlet>
+
+</atlassian-plugin>
+

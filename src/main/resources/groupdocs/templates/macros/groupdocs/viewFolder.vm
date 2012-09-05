@@ -1,0 +1,12 @@
+$webResourceManager.requireResource("com.groupdocs.plugins.confluence-groupdocs:groupdocsFolderWebResource")
+
+#if($title)
+<h3>$!{title}</h3>
+#end
+<div name="groupdocsBrowser" class="">
+	<input name="path" value="$!{path}" type="hidden"/>
+	<input name="width" value="$!{width}" type="hidden"/>
+	<input name="height" value="$!{height}" type="hidden"/>
+	<div name="groupdocsBrowserInner"></div>
+</div>
+

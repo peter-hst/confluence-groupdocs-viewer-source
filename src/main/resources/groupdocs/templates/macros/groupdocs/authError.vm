@@ -1,0 +1,7 @@
+<div class="layout-container profile-page">
+	<div class="aui-message warning">
+		<span class="aui-icon icon-warning"></span>
+		<span>Confluence is currently not authorized to retrieve data on your behalf or the token is invalid.  To authorize, please click <a href="$!req.contextPath/users/plugins/groupdocs/account.action">here</a>.</span>
+	</div>
+</div>
+

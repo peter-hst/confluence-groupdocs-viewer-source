@@ -1,0 +1,7 @@
+div.fileTree-loading {
+	background-image: url('images/loading.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 32px;
+}
+

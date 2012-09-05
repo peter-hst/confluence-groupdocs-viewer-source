@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<title>GroupDocs Settings</title>
+        <content tag="selectedWebItem">groupdocsconfig</content>
+	</head>
+	<body>
+        #parse ( "/template/includes/actionmessages.vm" )
+
+        #parse ( "/template/includes/actionerrors.vm" )
+
+
+	    <form action="${req.contextPath}/admin/plugins/groupdocs/save.action" method="POST">
+	    	<div>
+	    		<h2>Set URLs for API Server and Embedded Viewer</h2>
+	    		<p>
+	    			<label style="width: 110px; display: inline-block;" for="dashboardUrl">Dashboard URL</label>
+	    			<input type="text" name="dashboardUrl" value="$!dashboardUrl" size="30" />
+	    			<span>(used in instructions to get Client ID/API Key)</span>
+	    			<br/>
+	    			<label style="width: 110px; display: inline-block;" for="apiUrl">API URL Root</label>
+	    			<input type="text" name="apiUrlRoot" value="$!apiUrlRoot" size="50" />
+	    			<br/>
+	    			<label style="width: 110px; display: inline-block;" for="apiUrl">Viewer URL Root</label>
+	    			<input type="text" name="viewerUrlRoot" value="$!viewerUrlRoot" size="50" />
+		            <br/>
+		            <br/>
+	    			<input type="submit" name="save" value="Save" />
+	    		</p>
+	        </div>
+	    </form>
+
+         #parse ( "/admin/admin-breadcrumbs.vm" )
+	</body>
+</html>
