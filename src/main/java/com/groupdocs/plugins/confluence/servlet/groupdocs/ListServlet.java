@@ -1,22 +1,19 @@
 package com.groupdocs.plugins.confluence.servlet.groupdocs;
 
+import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
+import com.groupdocs.plugins.confluence.component.groupdocs.FileItem;
+import com.groupdocs.plugins.confluence.component.groupdocs.GroupDocsManager;
+import com.groupdocs.plugins.confluence.util.AuthException;
+import com.groupdocs.sdk.common.GroupDocsRequestSigner;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
-import com.groupdocs.plugins.confluence.component.groupdocs.FileItem;
-import com.groupdocs.plugins.confluence.component.groupdocs.GroupDocsManager;
-import com.groupdocs.plugins.confluence.util.AuthException;
-import com.wordnik.swagger.runtime.common.APIInvoker;
-import com.wordnik.swagger.runtime.common.GroupDocsUrlSigningSecurityHandler;
 
 public class ListServlet extends HttpServlet {
 
@@ -61,7 +58,7 @@ public class ListServlet extends HttpServlet {
 					for (FileItem item : items) {
 						if(item.getType() == null) {
 							StringBuilder url = new StringBuilder(groupDocsManager.getSettings().getViewerUrl() + item.getId());
-							new GroupDocsUrlSigningSecurityHandler(privateKey).populateSecurityInfo(url, null);
+							new GroupDocsRequestSigner(privateKey).signUrl(url.toString());
 							out.print("<li class=\"file ext_" + item.getExtension() + "\"><a class='iframe' href='" + url.toString() + "' rel=\"" +
 										item.getId() + "\">" + item.getTitle() + "</a></li>");
 						}
@@ -74,8 +71,9 @@ public class ListServlet extends HttpServlet {
 			} else {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			}
-		} else
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		} else {
+                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    }
 	}
 
 	public void setGroupDocsManager(GroupDocsManager groupDocsManager) {
