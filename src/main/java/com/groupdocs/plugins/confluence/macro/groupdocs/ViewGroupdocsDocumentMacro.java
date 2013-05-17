@@ -23,9 +23,11 @@ public class ViewGroupdocsDocumentMacro extends BaseMacro {
 	public String execute(Map parameters, String body, RenderContext renderContext) throws MacroException {
 		Map<String, Object> contextMap = MacroUtils.defaultVelocityContext();
 
+		String ref = "?&referer=Confluence-Viewer/1.3";
 		Object width = parameters.get("width");
 		Object height = parameters.get("height");
 		String guid = (String) parameters.get("path");
+		guid += ref;
 		contextMap.put("url", guid.startsWith("http") ? guid : (groupDocsManager.getSettings().getViewerUrl() + guid));
 		contextMap.put("width", width == null ? DEFAULT_WIDTH : width);
 		contextMap.put("height", height == null ? DEFAULT_HEIGHT : height);
