@@ -1,2 +1,4 @@
 <iframe width="$!{width}" height="$!{height}" frameborder="0" src="$!{url}">
+If you can see this text, your browser does not support iframes. Please enable iframe support in your browser or use the latest version of any popular web browser such as Mozilla Firefox or Google Chrome. For more help, please check our documentation Wiki:
+http://groupdocs.com/docs/display/Viewer/GroupDocs+Viewer+Integration+with+3rd+Party+Platforms
 </iframe>
