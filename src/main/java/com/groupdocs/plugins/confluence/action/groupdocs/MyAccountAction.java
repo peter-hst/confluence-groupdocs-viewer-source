@@ -1,19 +1,33 @@
 package com.groupdocs.plugins.confluence.action.groupdocs;
 
-import java.util.Map;
-
 import com.atlassian.confluence.user.actions.AbstractUserProfileAction;
 import com.groupdocs.plugins.confluence.component.groupdocs.GroupDocsManager;
 
 public class MyAccountAction extends AbstractUserProfileAction {
 
 	private GroupDocsManager groupDocsManager;
+        private String groupDocsLogin;
+        private String groupDocsPassword;
 	private String groupDocsClientId;
 	private String groupDocsPrivateKey;
 	private String dashboardUrl;
 	
 	public String account() {
 		return SUCCESS;
+	}
+        
+        public String getGroupDocsLogin(){
+		if(groupDocsLogin == null){
+			groupDocsLogin = groupDocsManager.getLogin(getRemoteUser());
+		}
+		return groupDocsLogin;
+	}
+        
+        public String getGroupDocsPassword(){
+		if(groupDocsPassword == null){
+			groupDocsPassword = groupDocsManager.getPassword(getRemoteUser());
+		}
+		return groupDocsPassword;
 	}
 
 	public String getGroupDocsClientId(){

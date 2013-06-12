@@ -1,13 +1,11 @@
 package com.groupdocs.plugins.confluence.action.groupdocs;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.groupdocs.plugins.confluence.component.groupdocs.GroupDocsManager;
 import com.opensymphony.webwork.ServletActionContext;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.apache.commons.lang.StringUtils;
 
 public class AdminAction extends ConfluenceActionSupport {
 
@@ -19,10 +17,10 @@ public class AdminAction extends ConfluenceActionSupport {
 	public String settings(){
 		GroupdocsSettings stg = groupDocsManager.getSettings();
 		try {
-			URL url = new URL(getGlobalSettings().getBaseUrl());
-			if(url.getProtocol() != null && url.getProtocol().equalsIgnoreCase("http")){
-				stg.setProtocol(url.getProtocol());
-			}
+                    URL url = new URL(getGlobalSettings().getBaseUrl());
+                    if(url.getProtocol() != null && url.getProtocol().equalsIgnoreCase("http")){
+                            stg.setProtocol(url.getProtocol());
+                    }
 		} catch (MalformedURLException e) {
 		}
 

@@ -8,6 +8,7 @@ import com.atlassian.user.User;
 import com.groupdocs.plugins.confluence.action.groupdocs.AdminAction.GroupdocsSettings;
 import com.groupdocs.plugins.confluence.util.AuthException;
 import com.groupdocs.plugins.confluence.util.Utils;
+import com.groupdocs.sdk.api.SharedApi;
 import com.groupdocs.sdk.api.StorageApi;
 import com.groupdocs.sdk.common.ApiException;
 import com.groupdocs.sdk.common.ApiInvoker;
@@ -15,6 +16,9 @@ import com.groupdocs.sdk.common.GroupDocsRequestSigner;
 import com.groupdocs.sdk.model.FileSystemDocument;
 import com.groupdocs.sdk.model.FileSystemFolder;
 import com.groupdocs.sdk.model.ListEntitiesResponse;
+import com.groupdocs.sdk.model.UserInfo;
+import com.groupdocs.sdk.model.UserInfoResponse;
+import com.groupdocs.sdk.model.UserInfoResult;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,16 @@ public class GroupDocsManagerImpl implements GroupDocsManager {
 
     private PluginSettingsFactory pluginSettingsFactory;
     private BandanaManager bandanaManager;
+    
+    @Override
+    public String getLogin(User user) {
+        return (String) getPluginSettings(LOGIN).get(user.getName());
+    }
+
+    @Override
+    public String getPassword(User user) {
+        return (String) getPluginSettings(PASSWORD).get(user.getName());
+    }
 
     @Override
     public String getClientId(User user) {
@@ -110,5 +124,17 @@ public class GroupDocsManagerImpl implements GroupDocsManager {
     public String getDashboardUrl() {
         ConfluenceBandanaContext ctx = new ConfluenceBandanaContext();
         return (String)bandanaManager.getValue(ctx, GROUPDOCS_DASHBOARD_URL);
+    }
+
+    @Override
+    public void userLogin(User user, String login, String password) {
+        try {
+            ApiInvoker.getInstance().setRequestSigner(new GroupDocsRequestSigner("12345"));
+            SharedApi sharedAPI = new SharedApi();
+            UserInfoResponse userInfoResponce = sharedAPI.LoginUser(login, password);
+            UserInfoResult userInfoResult = userInfoResponce.getResult();
+            UserInfo userInfo = userInfoResult.getUser();
+            saveAccountInfo(user, userInfo.getGuid(), userInfo.getPkey());
+        } catch (ApiException ex) {}
     }
 }

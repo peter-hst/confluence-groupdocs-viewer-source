@@ -17,67 +17,68 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ListServlet extends HttpServlet {
 
-	private GroupDocsManager groupDocsManager;
+    private GroupDocsManager groupDocsManager;
 
-	protected void doPost(HttpServletRequest request,
-		HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
 
-		String path = request.getParameter("dir");
-		if (path == null || path.equals("/")){
-			path = "";
-		} else {
-			try {
-				path = URLDecoder.decode(path, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-		}
+        String path = request.getParameter("dir");
+        if (path == null || path.equals("/")) {
+            path = "";
+        } else {
+            try {
+                path = URLDecoder.decode(path, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
 
-		String clientId = groupDocsManager.getClientId(AuthenticatedUserThreadLocal.getUser());
-		String privateKey = groupDocsManager.getPrivateKey(AuthenticatedUserThreadLocal.getUser());
+        String login = groupDocsManager.getLogin(AuthenticatedUserThreadLocal.getUser());
+        String password = groupDocsManager.getPassword(AuthenticatedUserThreadLocal.getUser());
+        String clientId = groupDocsManager.getClientId(AuthenticatedUserThreadLocal.getUser());
+        String privateKey = groupDocsManager.getPrivateKey(AuthenticatedUserThreadLocal.getUser());
 
-		if (path != null) {
-			if (clientId != null && !clientId.isEmpty() && privateKey != null && !privateKey.isEmpty() ) {
-				try {
-					List<FileItem> items = groupDocsManager.getFolderContents(path, clientId, privateKey);
-					if(items == null){
-						response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-						return;
-					}
-					response.setContentType("text/html; charset=UTF-8");
-//					response.setCharacterEncoding("UTF-8");
-					PrintWriter out = response.getWriter();
-
-					out.print("<ul class=\"jqueryFileTree\" style=\"display: none;\">");
-					for (FileItem item : items) {
-						if(item.getType() != null) {
-							out.print("<li class=\"directory collapsed\"><a href=\"#\" rel=\"" +
-										path + item.getPath() + "/\">" + item.getTitle() + "</a></li>");
-						}
-					}
-					for (FileItem item : items) {
-						if(item.getType() == null) {
-							StringBuilder url = new StringBuilder(groupDocsManager.getSettings().getViewerUrl() + item.getId());
-							new GroupDocsRequestSigner(privateKey).signUrl(url.toString());
-							out.print("<li class=\"file ext_" + item.getExtension() + "\"><a class='iframe' href='" + url.toString() + "' rel=\"" +
-										item.getId() + "\">" + item.getTitle() + "</a></li>");
-						}
-					}
-					out.print("</ul>");
-
-				} catch (AuthException e) {
-					response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				}
-			} else {
-				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			}
-		} else {
+        if (path != null) {
+            if (clientId != null && !clientId.isEmpty() && privateKey != null && !privateKey.isEmpty()) {
+                try {
+                    List<FileItem> items = groupDocsManager.getFolderContents(path, clientId, privateKey);
+                    if (items == null) {
                         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        return;
                     }
-	}
+                    response.setContentType("text/html; charset=UTF-8");
+//					response.setCharacterEncoding("UTF-8");
+                    PrintWriter out = response.getWriter();
 
-	public void setGroupDocsManager(GroupDocsManager groupDocsManager) {
-		this.groupDocsManager = groupDocsManager;
-	}
+                    out.print("<ul class=\"jqueryFileTree\" style=\"display: none;\">");
+                    for (FileItem item : items) {
+                        if (item.getType() != null) {
+                            out.print("<li class=\"directory collapsed\"><a href=\"#\" rel=\""
+                                    + path + item.getPath() + "/\">" + item.getTitle() + "</a></li>");
+                        }
+                    }
+                    for (FileItem item : items) {
+                        if (item.getType() == null) {
+                            StringBuilder url = new StringBuilder(groupDocsManager.getSettings().getViewerUrl() + item.getId());
+                            new GroupDocsRequestSigner(privateKey).signUrl(url.toString());
+                            out.print("<li class=\"file ext_" + item.getExtension() + "\"><a class='iframe' href='" + url.toString() + "' rel=\""
+                                    + item.getId() + "\">" + item.getTitle() + "</a></li>");
+                        }
+                    }
+                    out.print("</ul>");
 
+                } catch (AuthException e) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    public void setGroupDocsManager(GroupDocsManager groupDocsManager) {
+        this.groupDocsManager = groupDocsManager;
+    }
 }
