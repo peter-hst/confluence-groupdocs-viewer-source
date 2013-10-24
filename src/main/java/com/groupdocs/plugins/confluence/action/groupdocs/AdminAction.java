@@ -116,7 +116,7 @@ public class AdminAction extends ConfluenceActionSupport {
 
 		public String getViewerUrl() {
 			if(StringUtils.isEmpty(viewerUrl)){
-				return protocol + "://apps.groupdocs.com/document-viewer/Embed/";
+				return protocol + "://apps.groupdocs.com/document-viewer/embed/";
 			}
 			return viewerUrl;
 		}
