@@ -1,7 +1,7 @@
-GroupDocs Viewer plugin for Confluence
+GroupDocs.Viewer for Cloud plugin for Confluence Source
 =========================
 
-With GroupDocs Viewer plugin for Confluence you can easily [view PDF, Word, Excel and Powerpoint documents online](http://groupdocs.com/apps/viewer) with the GroupDocs Embedded Viewer tool, directly from within your Confluence powered website.
+With GroupDocs.Viewer for Cloud plugin for Confluence you can easily [view PDF, Word, Excel and Powerpoint documents online](http://groupdocs.com/apps/viewer) with the GroupDocs Embedded Viewer tool, directly from within your Confluence powered website.
 
 
 ###Plugin Installation Instructions:
@@ -15,9 +15,9 @@ With GroupDocs Viewer plugin for Confluence you can easily [view PDF, Word, Exce
 
 
 ###[Sign, Manage, Annotate, Assemble, Compare and Convert Documents with GroupDocs](http://groupdocs.com)
-* [View PDF, Word, Excel, Powerpoint and Images with GroupDocs Viewer](http://groupdocs.com/apps/viewer)
-* [Download Viewer plugin package here](https://github.com/groupdocs/confluence-groupdocs-viewer)
+* [View PDF, Word, Excel, Powerpoint and Images with GroupDocs.Viewer](http://groupdocs.com/apps/viewer)
+* [Download GroupDocs.Viewer for Cloud plugin package here](https://github.com/groupdocs/confluence-groupdocs-viewer)
 * [Embed DOC, DOCX, PDF Viewer in your Confluence powered website] (https://marketplace.atlassian.com/plugins/com.groupdocs.plugins.confluence-groupdocs)
 
 
-###Created by [GroupDocs Marketplace Team](http://groupdocs.com/marketplace/).
+###Created by [GroupDocs Marketplace Team](http://groupdocs.com/marketplace).
